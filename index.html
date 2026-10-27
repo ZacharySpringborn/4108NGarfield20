@@ -69,6 +69,14 @@ section > h2{font-size:clamp(24px,3.4vw,30px);margin:8px 0 8px}
 .tile.hi .v{color:var(--orange-ink)}
 .tile.zero .v{color:var(--ink-2)}
 .tiles.four{grid-template-columns:repeat(4,1fr)}
+.tiles.three{grid-template-columns:repeat(3,1fr);margin-bottom:0}
+.tiles.three .tile .v{font-size:36px}
+h3.subhead{font-size:21px;margin:30px 0 4px}
+.pace{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-top:16px}
+.pace h3{font-size:18px;margin-bottom:10px}
+.card .row.src,.pace .row.src{grid-template-columns:minmax(120px,170px) 1fr 70px}
+.row.src .bar.now{background:var(--orange)}
+.note{font-size:13px;color:var(--muted);margin:10px 0 0}
 .tiles.four .tile .v{font-size:36px}
 
 .callout{margin:18px 0 0;padding:18px 20px;border-left:3px solid var(--orange);background:var(--surface);border-radius:0 12px 12px 0}
@@ -147,6 +155,7 @@ footer p{margin:0 0 8px}
 @media (max-width:820px){
   .tiles{grid-template-columns:repeat(3,1fr)}
   .tiles.four{grid-template-columns:repeat(2,1fr)}
+  .tiles.three{grid-template-columns:repeat(3,1fr)}
   .split,.options{grid-template-columns:1fr}
 }
 @media (max-width:560px){
@@ -155,6 +164,9 @@ footer p{margin:0 0 8px}
   .logo{height:58px}
   .tiles{grid-template-columns:repeat(2,1fr)}
   .tile .v{font-size:34px}
+  .tiles.three .tile .v{font-size:26px}
+  .tiles.three .tile{padding:12px 10px}
+  .card .row.src,.pace .row.src{grid-template-columns:104px 1fr 58px}
   .row,.axis{grid-template-columns:118px 1fr 54px;gap:8px}
   .row .lab small{display:none}
   .axis .ticks span.odd{display:none}
@@ -185,6 +197,10 @@ footer p{margin:0 0 8px}
   .act.primary{background:#fff;color:#111;border-color:var(--orange)}
   .tiles{grid-template-columns:repeat(6,1fr) !important;gap:6px}
   .tiles.four{grid-template-columns:repeat(4,1fr) !important}
+  .tiles.three{grid-template-columns:repeat(3,1fr) !important}
+  .tiles.three .tile .v{font-size:24px}
+  .pace{padding:12px 14px;break-inside:avoid}
+  h3.subhead{font-size:17px;margin-top:16px}
   .tile{padding:10px}
   .tiles.four .tile .v{font-size:24px}
   .split,.options{grid-template-columns:1fr 1fr !important;gap:10px}
@@ -215,44 +231,51 @@ footer p{margin:0 0 8px}
   <img class="logo" alt="JPAR® Modern Real Estate" src="data:image/png;base64,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">
   <div class="report-id">
     <div class="t">Seller Listing Report</div>
-    <div class="d">Prepared October 13, 2026 · Day 30 on market</div>
+    <div class="d">Updated October 27, 2026 · Day 44 on market</div>
   </div>
 </header>
 
 <div class="hero">
   <div class="eyebrow">For Kay · 4108 N Garfield Ave, Lot 20</div>
-  <h1>Thirty days in: plenty of eyes, no showings yet.</h1>
+  <h1>Six weeks in: over 1,000 views, still no showings.</h1>
   <div class="addr">
     <span><b>4108 N Garfield Ave #20</b>, Loveland, CO 80538</span>
     <span>Horseshoe Acres Park · 50+</span>
     <span>2 bed · 1 bath · 924 sq ft · 1983</span>
     <span>Listed Sept 14 at <b>$55,000</b></span>
   </div>
-  <p class="lede">Kay, your home has been on the market since September 14, and online it's getting real attention: <strong>852 listing views</strong> across Realtor.com, Trulia, the MLS and agent sites. But none of those views has turned into an inquiry, a saved listing, or a showing. When a home is being seen but not visited, buyers are usually telling us something about the price compared with what else they can buy. Here's what the numbers show, and a few options I'd like to talk through with you by phone.</p>
+  <p class="lede">Kay, your home has been on the market since September 14, and online it's getting real attention: <strong>1,095 listing views</strong> across Realtor.com, Trulia, the MLS and agent sites. But none of those views has turned into an inquiry, a saved listing, or a showing, and the pace of new views has started to slow. When a home is being seen but not visited, buyers are usually telling us something about the price compared with what else they can buy. Here's what the numbers show, and a few options I'd like to talk through with you by phone.</p>
 </div>
 
 <section>
   <div class="eyebrow">Listing activity</div>
   <h2>People are finding it. They aren't taking the next step.</h2>
-  <p class="sub">September 14 – October 13, 2026 · online activity from ListTrac, showings from ShowingTime</p>
+  <p class="sub">September 14 – October 27, 2026 · online activity from ListTrac, showings from ShowingTime</p>
   <div class="tiles">
-    <div class="tile hi"><div class="v num">852</div><div class="l">Online listing views</div></div>
+    <div class="tile hi"><div class="v num">1,095</div><div class="l">Online listing views (+243 since Oct 13)</div></div>
     <div class="tile zero"><div class="v num">0</div><div class="l">Buyer inquiries</div></div>
     <div class="tile zero"><div class="v num">0</div><div class="l">Saved as a favorite</div></div>
     <div class="tile zero"><div class="v num">0</div><div class="l">Times shared</div></div>
     <div class="tile zero"><div class="v num">0</div><div class="l">Showings booked</div></div>
     <div class="tile zero"><div class="v num">0</div><div class="l">Agent previews</div></div>
   </div>
-  <div class="callout"><p><b>Exposure isn't the problem.</b> More than 850 views in a month means buyers are finding the listing. The drop-off happens after they look: no one has saved it, asked a question, or booked a visit.</p></div>
+  <div class="callout"><p><b>Exposure isn't the problem, but interest is cooling.</b> More than 1,000 views means buyers are finding the listing. The drop-off happens after they look: no one has saved it, asked a question, or booked a visit. Since my last update on October 13, views went up by 243 and every other number stayed at zero.</p></div>
+
+  <div class="pace">
+    <h3>Views per day are slowing</h3>
+    <div class="row src"><div class="lab">First 30 days<small>Sept 14 – Oct 13</small></div><div class="track"><div class="bar" style="width:94.7%"></div></div><div class="val num">28/day</div></div>
+    <div class="row src"><div class="lab">Last 14 days<small>Oct 14 – Oct 27</small></div><div class="track"><div class="bar now" style="width:58%"></div></div><div class="val num">17/day</div></div>
+    <p class="note">New listings get the most attention in their first few weeks. That window is closing, so a change now reaches buyers while the listing still shows up as recent.</p>
+  </div>
 
   <div class="split">
     <div class="card">
       <h3>Where views came from</h3>
-      <ul>
-        <li>Realtor.com and Trulia</li>
-        <li>The IRES MLS (seen by local agents)</li>
-        <li>Broker and agent websites, plus other home-search portals</li>
-      </ul>
+      <div class="row src"><div class="lab">Broker &amp; agent sites</div><div class="track"><div class="bar" style="width:91%"></div></div><div class="val num">~730</div></div>
+      <div class="row src"><div class="lab">Realtor.com</div><div class="track"><div class="bar" style="width:26.4%"></div></div><div class="val num">211</div></div>
+      <div class="row src"><div class="lab">Trulia</div><div class="track"><div class="bar" style="width:19%"></div></div><div class="val num">~150</div></div>
+      <div class="row src"><div class="lab">IRES MLS</div><div class="track"><div class="bar" style="width:1%"></div></div><div class="val num">few</div></div>
+      <p class="note">Realtor.com is ListTrac's exact count; the others are read from its chart and rounded.</p>
     </div>
     <div class="card">
       <h3>Who's looking</h3>
@@ -261,7 +284,8 @@ footer p{margin:0 0 8px}
         <tr><td>Denver (80221)</td><td class="num">3 viewers</td></tr>
         <tr><td>Longmont (80501)</td><td class="num">2 viewers</td></tr>
         <tr><td>Charlotte, NC (28213)</td><td class="num">2 viewers</td></tr>
-        <tr><td>All other areas</td><td class="num">21 ZIP codes total</td></tr>
+        <tr><td>Out of state</td><td class="num">FL, MN, MO, NC, Colombia</td></tr>
+        <tr><td>All areas</td><td class="num">28 ZIP codes total</td></tr>
       </table>
     </div>
   </div>
@@ -270,7 +294,16 @@ footer p{margin:0 0 8px}
 <section>
   <div class="eyebrow">The market</div>
   <h2>How $55,000 compares</h2>
-  <p class="sub">2-bed / 1-bath manufactured homes in 55+ communities, Loveland &amp; Fort Collins · IRES MLS</p>
+  <p class="sub">2-bed / 1-bath manufactured homes, Larimer County · IRES MLS as of October 27, 2026</p>
+  <div class="tiles three">
+    <div class="tile"><div class="v num">12</div><div class="l">For sale now in Larimer County</div></div>
+    <div class="tile"><div class="v num">17</div><div class="l">Sold so far in 2026, about 1.7 a month</div></div>
+    <div class="tile hi"><div class="v num">~7 mo</div><div class="l">Supply at this year's sales pace</div></div>
+  </div>
+  <div class="callout"><p><b>Buyers have choices and no reason to hurry.</b> With about seven months of homes on the market at the current sales pace, buyers can compare listings side by side, and price is usually what they compare first.</p></div>
+
+  <h3 class="subhead">The closest match: 55+ communities</h3>
+  <p class="sub">2-bed / 1-bath manufactured homes in 55+ communities, Loveland &amp; Fort Collins · IRES MLS as of October 13, 2026</p>
   <div class="tiles four">
     <div class="tile"><div class="v num">$24,000</div><div class="l">Median sale price, 7 sales in 2026 (average $29,843)</div></div>
     <div class="tile"><div class="v num">$36,000</div><div class="l">Highest-priced 55+ competitor for sale now</div></div>
@@ -329,7 +362,7 @@ footer p{margin:0 0 8px}
       </ul>
     </div>
   </div>
-  <div class="callout"><p><b>Is it too soon to worry?</b> Thirty days isn't long in this segment. The 2026 sales above took a median of 106 days. But a home that's on track usually gets some showings in its first month. With none so far, waiting is unlikely to change the result by itself.</p></div>
+  <div class="callout"><p><b>Is it too soon to worry?</b> Six weeks isn't long in this segment. The 55+ sales above took a median of 106 days. But a home that's on track usually gets some showings in its first month or so. With none after 44 days and views slowing, waiting is unlikely to change the result by itself.</p></div>
 </section>
 
 <section>
@@ -364,7 +397,7 @@ footer p{margin:0 0 8px}
 </section>
 
 <footer>
-  <p><b>About this data.</b> Online activity is from ListTrac (Sept 14 – Oct 13, 2026); views are counted across the sites that report to ListTrac. Showing and agent-preview counts are from ShowingTime. Comparable homes are 2-bed / 1-bath manufactured homes in 55+ communities in Loveland and Fort Collins: seven 2026 sales (through Sept 30, 2026) and five active listings as of Oct 13, 2026. Price per square foot is approximate and based on MLS square footage. Lot rent varies by community and is not included in any price shown. This report is a market summary for discussion, not an appraisal or a guarantee of sale price or timing.</p>
+  <p><b>About this data.</b> Online activity is from ListTrac (Sept 14 – Oct 27, 2026); views are counted across the sites that report to ListTrac, and source counts other than Realtor.com are approximate. Showing and agent-preview counts are from ShowingTime as of Oct 27, 2026. Larimer County counts cover 2-bed / 1-bath manufactured homes (active as of Oct 27, 2026; sold Jan 1 – Oct 27, 2026); months of supply is active listings divided by the average monthly sales pace. The 55+ comparison covers 2-bed / 1-bath manufactured homes in 55+ communities in Loveland and Fort Collins: seven 2026 sales (through Sept 30, 2026) and five active listings as of Oct 13, 2026. Price per square foot is approximate and based on MLS square footage. Lot rent varies by community and is not included in any price shown. This report is a market summary for discussion, not an appraisal or a guarantee of sale price or timing.</p>
   <p>Source: IRES MLS. MLS content copyright 1995–2026, IRES LLC. All rights reserved. Information deemed reliable but not guaranteed.</p>
   <p>Zachary Springborn, Licensed Real Estate Broker, CREC #100103789 · JPAR® Modern Real Estate · 5601 Olde Wadsworth Blvd, Suite 220, Arvada, CO 80004 · 303-433-3158 · Equal Housing Opportunity.</p>
 </footer>
@@ -380,7 +413,7 @@ footer p{margin:0 0 8px}
   try{ if(localStorage.getItem('garfield-theme')==='light') setTheme('light'); }catch(e){}
   btn.addEventListener('click',function(){ setTheme(root.getAttribute('data-theme')==='light'?'dark':'light'); });
 
-  var subject={a:"4108 N Garfield Ave #20",c:"Loveland",p:"Horseshoe Acres Park",price:55000,sf:924,yr:1983,dom:30,s:"subject"};
+  var subject={a:"4108 N Garfield Ave #20",c:"Loveland",p:"Horseshoe Acres Park",price:55000,sf:924,yr:1983,dom:44,s:"subject"};
   var sold=[
     {a:"1166 Madison Ave #85",c:"Loveland",p:"Aspen Ridge",price:65000,sf:896,yr:1984,dom:106,date:"09/08/26"},
     {a:"1601 N College Ave #299",c:"Fort Collins",p:"North College",price:32000,sf:1024,yr:1980,dom:15,date:"04/06/26"},
